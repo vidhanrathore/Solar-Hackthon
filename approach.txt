@@ -1,0 +1,75 @@
+
+📄 Project Title:
+Predicting Solar Panel Efficiency Using Machine Learning and Deep Learning Models
+
+🧠 Problem Statement
+The objective of this project is to build a predictive model to estimate solar panel efficiency using historical and real-time sensor data. The model aims to enable predictive maintenance and maximize energy output by identifying performance degradation and potential failures.
+
+🧹 Step 1: Data Cleaning
+Thorough data cleaning was performed to ensure high-quality inputs:
+- Handled missing values using optimal strategies:
+  - Used KNNImputer for the prediction of zero value of the voltage.
+  - Mean for smooth, symmetric distributions (pressure)
+  - Median for skewed or noisy values (wind_speed)
+  - Mode for categorical fields (installation_type, error_code)
+- Converted categorical data like error_code, string_id, and installation_type using Label Encoding.
+- Fixed formatting issues and rounded numeric values (like humidity) to 5 decimal places for uniformity.
+- Removed or imputed zero values in critical numerical columns like voltage using predictive modeling (CatBoostRegressor).
+- Detected and treated outliers using IQR method and capping techniques.
+
+⚙️ Step 2: Feature Engineering
+Several meaningful features were engineered to improve model performance:
+- power_output = voltage * current
+- temp_diff = module_temperature - temperature
+- irradiance_per_cloud = irradiance / (cloud_coverage + 1)
+
+These features helped uncover hidden patterns and improve model accuracy.
+
+🎯 Step 3: Model Experiments
+Multiple regression models were experimented with to find the best fit:
+
+✅ Machine Learning Models Tried:
+- Linear Regression
+- Ridge and Lasso Regression
+- Decision Tree Regressor
+- Random Forest Regressor
+- XGBoost Regressor
+- LightGBM Regressor
+- CatBoost Regressor – (Best performer among classical ML models)
+
+Each model was tuned for hyperparameters such as depth, learning rate, and iterations using manual search and trial combinations.
+
+🧠 Deep Learning Model
+A Deep Learning Regression Model using TensorFlow/Keras was trained:
+- Architecture: Dense layers with ReLU activations
+- Optimizer: Adam
+- Loss: Mean Squared Error
+- Used early stopping and batch normalization for better generalization
+
+After multiple rounds of tuning the architecture and learning rate, performance improved substantially.
+
+📉 Feature Selection Trials
+Multiple experiments were conducted with:
+- All features
+- Minimal essential features (based on correlation and permutation importance)
+- Feature sets with and without engineered features
+
+These hit-and-trial combinations helped identify the most influential inputs for better efficiency prediction.
+
+📈 Evaluation Metric
+The custom score was defined as:
+Score = 100 * (1 - sqrt(MSE))
+
+The final CatBoost and Deep Learning models reached scores over 90, validating the model’s reliability.
+
+🧰 Tools and Libraries Used
+- Python (3.8+)
+- Pandas, NumPy, Scikit-learn
+- CatBoost, XGBoost, LightGBM
+- TensorFlow / Keras
+- Matplotlib / Seaborn (for EDA)
+
+📦 Final Deliverables
+- approach.txt: this documentation file
+- model.py or .ipynb: code used for data cleaning, modeling, prediction
+- submission.csv: formatted predictions as per competition requirements
